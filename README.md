@@ -38,7 +38,7 @@ POST /daftar
 Request:
 ```json
 {
-  "nama": "Budi Santoso",
+  "nama": "Muchammad Fahrizal",
   "nik": "1234567890123456",
   "no_hp": "081234567890"
 }
