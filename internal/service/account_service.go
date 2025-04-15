@@ -40,7 +40,7 @@ func (s *AccountService) RegisterNasabah(request models.DaftarRequest) (*models.
 	existingNasabah, err = s.repo.GetByNoHP(request.NoHP)
 	if err == nil && existingNasabah != nil {
 		logger.Warning("Phone number already registered", "no_hp", request.NoHP)
-		return nil, errors.New("Nomor HP sudah terdaftar")
+		return nil, errors.New("nomor HP sudah terdaftar")
 	} else if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		logger.Error(fmt.Sprintf("Error checking NoHP: %v", err))
 		return nil, err
@@ -74,14 +74,14 @@ func (s *AccountService) Deposit(request models.TabungRequest) (*models.SaldoRes
 
 	if request.Nominal <= 0 {
 		logger.Warning("Invalid deposit amount", "nominal", request.Nominal)
-		return nil, errors.New("Nominal harus lebih dari 0")
+		return nil, errors.New("nominal harus lebih dari 0")
 	}
 
 	nasabah, err := s.repo.GetByNoRekening(request.NoRekening)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			logger.Warning("Account not found", "no_rekening", request.NoRekening)
-			return nil, errors.New("Nomor rekening tidak ditemukan")
+			return nil, errors.New("nomor rekening tidak ditemukan")
 		}
 		logger.Error(fmt.Sprintf("Error finding account: %v", err))
 		return nil, err
@@ -104,14 +104,14 @@ func (s *AccountService) Withdraw(request models.TarikRequest) (*models.SaldoRes
 
 	if request.Nominal <= 0 {
 		logger.Warning("Invalid withdrawal amount", "nominal", request.Nominal)
-		return nil, errors.New("Nominal harus lebih dari 0")
+		return nil, errors.New("nominal harus lebih dari 0")
 	}
 
 	nasabah, err := s.repo.GetByNoRekening(request.NoRekening)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			logger.Warning("Account not found", "no_rekening", request.NoRekening)
-			return nil, errors.New("Nomor rekening tidak ditemukan")
+			return nil, errors.New("nomor rekening tidak ditemukan")
 		}
 		logger.Error(fmt.Sprintf("Error finding account: %v", err))
 		return nil, err
@@ -120,7 +120,7 @@ func (s *AccountService) Withdraw(request models.TarikRequest) (*models.SaldoRes
 	if nasabah.Saldo < request.Nominal {
 		logger.Warning("Insufficient balance", "no_rekening", request.NoRekening,
 			"requested", request.Nominal, "available", nasabah.Saldo)
-		return nil, errors.New("Saldo tidak cukup")
+		return nil, errors.New("saldo tidak cukup")
 	}
 
 	nasabah.Saldo -= request.Nominal
@@ -142,7 +142,7 @@ func (s *AccountService) GetBalance(noRekening string) (*models.SaldoResponse, e
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			logger.Warning("Account not found", "no_rekening", noRekening)
-			return nil, errors.New("Nomor rekening tidak ditemukan")
+			return nil, errors.New("nomor rekening tidak ditemukan")
 		}
 		logger.Error(fmt.Sprintf("Error finding account: %v", err))
 		return nil, err
