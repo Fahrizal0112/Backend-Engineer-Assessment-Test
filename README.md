@@ -9,7 +9,6 @@ Aplikasi REST API sederhana untuk layanan perbankan dengan fitur dasar: registra
 - Penarikan dana dengan validasi saldo
 - Pengecekan saldo rekening
 - Logging terstruktur untuk setiap operasi
-- Validasi data menggunakan go-playground/validator
 
 ## Teknologi
 
