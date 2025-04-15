@@ -6,7 +6,7 @@ type Nasabah struct {
 	NIK        string `gorm:"type:varchar(16);uniqueIndex;not null"`
 	NoHP       string `gorm:"type:varchar(15);uniqueIndex;not null"`
 	NoRekening string `gorm:"type:varchar(10);uniqueIndex;not null"`
-	Saldo      int64 `gorm:"default:0;not null"`
+	Saldo      int64  `gorm:"default:0;not null"`
 }
 
 type DaftarRequest struct {
